@@ -1,26 +1,14 @@
 import React from "react";
 
-function GuessList({ guesses }) {
+import GuessItem from "../GuessItem/GuessItem";
+import { range } from "../../utils";
+import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
+
+function GuessList({ guesses, answer }) {
   return (
     <div className="guess-results">
-      {guesses.map((guess, guessIdx) => (
-        <p className="guess" key={guessIdx}>
-          {typeof guess !== "number" ? (
-            guess.map((item, itemIdx) => (
-              <span className={`cell ${item.status}`} key={itemIdx}>
-                {item.letter}
-              </span>
-            ))
-          ) : (
-            <>
-              <span className="cell"></span>
-              <span className="cell"></span>
-              <span className="cell"></span>
-              <span className="cell"></span>
-              <span className="cell"></span>
-            </>
-          )}
-        </p>
+      {range(NUM_OF_GUESSES_ALLOWED).map((num) => (
+        <GuessItem key={num} value={guesses[num]} answer={answer} />
       ))}
     </div>
   );
